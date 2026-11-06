@@ -1,0 +1,67 @@
+#include <iostream>
+#include <iomanip>
+#include <limits>
+
+using namespace std;
+
+int main() {
+    int N;
+    int estado[10];
+    int ativos = 0;
+    int inativos = 0;
+
+
+    cout << "Digite a quantidade de dispositivos (1 a 10): ";
+
+    while (!(cin >> N) || N < 1 || N > 10) {
+        cout << "Entrada invalida! Digite um numero entre 1 e 10: ";
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+  
+    for (int i = 0; i < N; i++) {
+        cout << "Estado do dispositivo " << i + 1
+             << " (1 = Ativo, 0 = Inativo): ";
+
+        while (!(cin >> estado[i]) ||
+               (estado[i] != 0 && estado[i] != 1)) {
+
+            cout << "Entrada invalida! Digite 0 ou 1: ";
+
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+
+
+    for (int i = 0; i < N; i++) {
+        if (estado[i] == 1) {
+            ativos++;
+        } else {
+            inativos++;
+        }
+    }
+
+
+    float disponibilidade = (float)ativos / N * 100.0;
+
+  
+    cout << fixed << setprecision(2);
+
+    cout << "\n=== PAINEL DE DISPONIBILIDADE ===" << endl;
+    cout << "Total de dispositivos: " << N << endl;
+    cout << "Dispositivos ativos: " << ativos << endl;
+    cout << "Dispositivos inativos: " << inativos << endl;
+    cout << "Disponibilidade: " << disponibilidade << "%" << endl;
+
+ 
+    if (inativos >= 2) {
+        cout << "ALERTA: Indisponibilidade critica!" << endl;
+    } else {
+        cout << "STATUS: Operacao normal." << endl;
+    } 
+
+    return 0;
+}
